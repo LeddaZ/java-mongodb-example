@@ -11,17 +11,40 @@ import java.util.Scanner;
 public class SusAmogus {
 
     private static final String connStr = "jdbc:sqlserver://localhost;databaseName=caramba;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         try {
             System.out.println("Connecting...");
             DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
             System.out.println("The driver has been registered!");
-            //list();
-            //insert();
-            list();
-            //delete();
-            updateDesc();
+            System.out.println("Choose an option: ");
+            System.out.println("1) List all products");
+            System.out.println("2) Insert a new article");
+            System.out.println("3) Delete an article");
+            System.out.println("4) Update an article's description");
+            System.out.println("5) Exit");
+            int option = scanner.nextInt();
+            scanner.nextLine();
+            switch (option) {
+                case 1:
+                    list();
+                    break;
+                case 2:
+                    insert();
+                    break;
+                case 3:
+                    delete();
+                    break;
+                case 4:
+                    updateDesc();
+                    break;
+                case 5:
+                    System.out.println("Good bye");
+                    return;
+                default:
+                    System.out.println("Invalid option");
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -55,7 +78,6 @@ public class SusAmogus {
      * Inserts a new product
      */
     public static void insert() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Name: ");
         String name = scanner.nextLine();
         System.out.print("Description: ");
