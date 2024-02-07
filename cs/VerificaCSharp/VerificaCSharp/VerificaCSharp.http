@@ -1,0 +1,6 @@
+@VerificaCSharp_HostAddress = http://localhost:5020
+
+GET {{VerificaCSharp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
