@@ -12,12 +12,15 @@ public class SusAmogus {
 
     private static final String connStr = "jdbc:sqlserver://localhost;databaseName=caramba;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
     private static final Scanner scanner = new Scanner(System.in);
+    private static Connection conn;
 
     public static void main(String[] args) {
         try {
             System.out.println("Connecting...");
             DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
+            conn = DriverManager.getConnection(connStr);
             System.out.println("The driver has been registered!");
+            System.out.println("Ready");
             System.out.println("Choose an option: ");
             System.out.println("1) List all products");
             System.out.println("2) Insert a new article");
@@ -55,8 +58,6 @@ public class SusAmogus {
      */
     public static void list() {
         try {
-            Connection conn = DriverManager.getConnection(connStr);
-            System.out.println("Ready");
             Statement myStatement = conn.createStatement();
             String query = "SELECT * FROM TabArticoli";
             ResultSet result = myStatement.executeQuery(query);
@@ -89,8 +90,6 @@ public class SusAmogus {
         System.out.print("VAT: ");
         int vat = scanner.nextInt();
         try {
-            Connection conn = DriverManager.getConnection(connStr);
-            System.out.println("Ready");
             String query = "INSERT INTO TabArticoli (Nome, Descrizione, Prezzo, Giacenza, IVA) "
                     + "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement prep = conn.prepareStatement(query);
@@ -110,12 +109,9 @@ public class SusAmogus {
      * Deletes a product
      */
     public static void delete() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Product ID: ");
         int id = scanner.nextInt();
         try {
-            Connection conn = DriverManager.getConnection(connStr);
-            System.out.println("Ready");
             String query = "DELETE FROM TabArticoli WHERE ID = ?";
             PreparedStatement prep = conn.prepareStatement(query);
             prep.setInt(1, id);
@@ -131,15 +127,12 @@ public class SusAmogus {
      * Updates product description
      */
     public static void updateDesc() {
-        Scanner scanner = new Scanner(System.in);
         System.out.print("Product ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
         System.out.print("New description: ");
         String newDesc = scanner.nextLine();
         try {
-            Connection conn = DriverManager.getConnection(connStr);
-            System.out.println("Ready");
             String query = "UPDATE TabArticoli SET Descrizione = ? WHERE ID = ?";
             PreparedStatement prep = conn.prepareStatement(query);
             prep.setString(1, newDesc);
