@@ -1,4 +1,4 @@
-package org.example;
+package it.leddaz.products;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -8,7 +8,7 @@ import java.util.Scanner;
  *
  * @author Leonardo Ledda (LeddaZ)
  */
-public class SusAmogus {
+public class Products {
 
     private static final String connStr = "jdbc:sqlserver://localhost;databaseName=caramba;integratedSecurity=true;encrypt=true;trustServerCertificate=true;";
     private static final Scanner scanner = new Scanner(System.in);
