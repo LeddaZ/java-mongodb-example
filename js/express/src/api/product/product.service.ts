@@ -1,19 +1,24 @@
-import PRODUCTS from '../../../products.json'
+import PRODUCTS from "../../../products.json";
+import { Product } from "./product.entity";
 
-export async function find(search?: string) {
-  let results = PRODUCTS
+export class ProductService {
+  async find(search?: string): Promise<Product[]> {
+    let result = PRODUCTS;
 
-  if (search) {
-    results = PRODUCTS.filter((item) => {
-      return item.name.toLowerCase().includes(search.toLowerCase())
-    })
+    if (search) {
+      result = PRODUCTS.filter((item) => {
+        return item.name.toLowerCase().includes(search.toLowerCase());
+      });
+    }
+
+    return result;
   }
 
-  return results
+  async getById(id: string): Promise<Product | undefined> {
+    return PRODUCTS.find((item) => {
+      return item.id === id;
+    });
+  }
 }
 
-export async function getById(id: string) {
-  return PRODUCTS.find((item) => {
-    return item.id === id
-  })
-}
+export default new ProductService();
