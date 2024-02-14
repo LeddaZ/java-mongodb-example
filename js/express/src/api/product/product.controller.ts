@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import PRODUCTS from '../../../products.json'
+import { find, getById } from './product.service'
 
 export const list = async (
   req: Request,
@@ -7,24 +7,16 @@ export const list = async (
   _next: NextFunction,
 ) => {
   const { search }: { search?: string } = req.query
-  let results = PRODUCTS
-
-  if (search) {
-    results = PRODUCTS.filter((item) => {
-      return item.name.toLowerCase().includes(search.toLowerCase())
-    })
-  }
-
-  res.json(results)
+  const result = await find(search)
+  res.json(result)
 }
 
-export const detail = (req: Request, res: Response, _next: NextFunction) => {
+export const detail = async (req: Request, res: Response, _next: NextFunction) => {
   const { id } = req.params
-  const item = PRODUCTS.find((item) => {
-    return item.id === id
-  })
+  const item = await getById(id)
   if (!item) {
     res.status(404)
     res.send('Product not found')
   }
+  res.json(item)
 }
