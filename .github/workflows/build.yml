@@ -21,14 +21,6 @@ jobs:
       - run: mvn -B package --file java/SQL/pom.xml
       - run: mvn -B package --file java/SusAmogus/pom.xml
 
-      - uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r SQL.zip java/SQL/target
-
-      - uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r SusAmogus.zip java/SusAmogus/target
-
       - uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -36,4 +28,4 @@ jobs:
           prerelease: false
           title: "Latest commit"
           files: |
-            *.zip
+            java/**/target/*.jar
