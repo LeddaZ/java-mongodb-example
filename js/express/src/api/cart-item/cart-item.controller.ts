@@ -3,7 +3,7 @@ import productService from '../product/product.service'
 import { CartItem } from './cart-item.entity'
 import cartItemService from './cart-item.service'
 
-export const cartItemList = async (
+export const list = async (
   req: Request,
   res: Response,
   _next: NextFunction,
