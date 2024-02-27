@@ -4,7 +4,7 @@ import { CartItem } from './cart-item.entity'
 import cartItemService, { CART } from './cart-item.service'
 
 export const list = async (
-  req: Request,
+  _req: Request,
   res: Response,
   _next: NextFunction,
 ) => {
@@ -13,11 +13,10 @@ export const list = async (
 
 export const add = async (req: Request, res: Response, _next: NextFunction) => {
   const { productId, quantity } = req.body
-  console.log(productId, quantity)
 
   const product = await productService.getById(productId)
   if (!product) {
-    res.send(404)
+    res.sendStatus(404)
     return
   }
 
@@ -35,10 +34,25 @@ export const updateQuantity = async (
   req: Request,
   res: Response,
   _next: NextFunction,
-) => {}
+) => {
+  const { id, newQuantity } = req.params
+
+  const product = await productService.getById(id)
+  if (!product) {
+    res.sendStatus(404)
+    return
+  }
+
+  const updatedItem = await cartItemService.updateQuantity(
+    id,
+    parseInt(newQuantity),
+  )
+
+  res.json(updatedItem)
+}
 
 export const remove = async (
-  req: Request,
-  res: Response,
+  _req: Request,
+  _res: Response,
   _next: NextFunction,
 ) => {}

@@ -18,8 +18,16 @@ export class CartItemService {
 
     CART.push(toAdd)
 
-    console.log(CART)
     return toAdd
+  }
+
+  async updateQuantity(productId: string, newQuantity: number) {
+    const existing = CART.find((element) => element.product === productId)
+
+    if (existing) {
+      existing.quantity = newQuantity
+      return existing
+    }
   }
 }
 
