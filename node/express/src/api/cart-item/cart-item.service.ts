@@ -1,3 +1,4 @@
+import productService from '../product/product.service'
 import { CartItem } from './cart-item.entity'
 
 export const CART: CartItem[] = []
@@ -7,28 +8,43 @@ export class CartItemService {
     const existing = CART.find((element) => element.product === item.product)
 
     if (existing) {
-      existing.quantity += item.quantity
-      return existing
+      return this.update(existing.id!, {
+        quantity: existing.quantity + item.quantity,
+      })
     }
 
     const toAdd = {
-      id: `${CART.length}`,
       ...item,
     }
 
     CART.push(toAdd)
 
-    return toAdd
+    return this.getById(toAdd.id)
   }
 
-  async updateQuantity(productId: string, newQuantity: number) {
-    const existing = CART.find((element) => element.product === productId)
+  async update(id: string, data: Partial<Omit<CartItem, 'id' | 'product'>>) {
+    const existing = await this.getById(id)
 
-    if (existing) {
-      existing.quantity = newQuantity
-      return existing
+    if (!existing) {
+      return null
     }
+
+    Object.assign(existing, data)
+
+    return existing
   }
+
+  async getById(id: string) {
+    const item = CART.find((element) => element.id === id)
+    if (!item) {
+      return null
+    }
+
+    const product = await productService.getById(item.product)
+    return this.populateCartItem
+  }
+
+  async populateCartItem(item: CartItem) {}
 }
 
 export default new CartItemService()

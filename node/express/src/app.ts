@@ -3,11 +3,7 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import { list, detail } from './api/product/product.controller'
-import {
-  list as cartItemList,
-  add,
-  updateQuantity,
-} from './api/cart-item/cart-item.controller'
+import { list as cartItemList, add, updateQuantity } from './api/cart-item/cart-item.controller'
 
 const app = express()
 
