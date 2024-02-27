@@ -1,6 +1,6 @@
 import { CartItem } from './cart-item.entity'
 
-const CART: CartItem[] = []
+export const CART: CartItem[] = []
 
 export class CartItemService {
   async add(item: CartItem) {

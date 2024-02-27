@@ -1,13 +1,15 @@
 import { NextFunction, Request, Response } from 'express'
 import productService from '../product/product.service'
 import { CartItem } from './cart-item.entity'
-import cartItemService from './cart-item.service'
+import cartItemService, { CART } from './cart-item.service'
 
 export const list = async (
   req: Request,
   res: Response,
   _next: NextFunction,
-) => {}
+) => {
+  res.send(CART)
+}
 
 export const add = async (req: Request, res: Response, _next: NextFunction) => {
   const { productId, quantity } = req.body
