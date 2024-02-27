@@ -35,17 +35,17 @@ export const updateQuantity = async (
   res: Response,
   _next: NextFunction,
 ) => {
-  const { id, newQuantity } = req.params
+  const { productId, newQuantity } = req.body
 
-  const product = await productService.getById(id)
+  const product = await productService.getById(productId)
   if (!product) {
     res.sendStatus(404)
     return
   }
 
   const updatedItem = await cartItemService.updateQuantity(
-    id,
-    parseInt(newQuantity),
+    productId,
+    newQuantity,
   )
 
   res.json(updatedItem)

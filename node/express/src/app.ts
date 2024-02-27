@@ -23,6 +23,6 @@ app.get('/cart-items', cartItemList)
 
 app.post('/cart-items', add)
 
-app.patch('/cart-items/:id/:newQuantity', updateQuantity)
+app.patch('/cart-items', updateQuantity)
 
 export default app
