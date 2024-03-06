@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace VerificaAlgoritmi { 
 
@@ -25,17 +26,15 @@ namespace VerificaAlgoritmi {
     {
         public static int CalcolaPeso(TreeNode root)
         {
-            // Caso base: se il nodo è una foglia, il suo peso è 1
+            int weight = 0;
             if (root.children.Length == 0)
             {
-                return 1;
+                weight++;
             }
 
-            // Altrimenti, calcoliamo il peso di ciascun figlio ricorsivamente
-            int weight = 1; // Conteggiamo anche il nodo stesso
             foreach (TreeNode child in root.children)
             {
-                weight += CalculateNodeWeight(child);
+                weight += CalcolaPeso(child);
             }
 
             return weight;
@@ -64,7 +63,7 @@ namespace VerificaAlgoritmi {
             TreeNode[] children = { leaf1, leaf2, leaf3 };
             TreeNode root = new TreeNode(8, children);
 
-            int weight = CalculateNodeWeight(root);
+            int weight = CalcolaPeso(root);
             Console.WriteLine("Peso del nodo radice: " + weight); // Output: 8
         }
     }
