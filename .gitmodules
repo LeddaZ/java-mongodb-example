@@ -1,6 +1,3 @@
 [submodule "node/ts-cart"]
   path = node/ts-cart
   url = https://github.com/LeddaZ/ts-cart
-[submodule "java/MongoDB"]
-	path = java/MongoDB
-	url = https://github.com/LeddaZ/java-mongodb-example
