@@ -1,1 +1,2 @@
 *.yml text eol=lf
+.git* text eol=lf
