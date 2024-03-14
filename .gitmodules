@@ -4,3 +4,6 @@
 [submodule "java/MongoDB"]
   path = java/MongoDB
   url = https://github.com/LeddaZ/java-mongodb-example
+[submodule "node/angular-cart"]
+  path = node/angular-cart
+  url = https://github.com/LeddaZ/angular-cart
